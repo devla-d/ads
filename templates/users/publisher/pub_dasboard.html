@@ -1,0 +1,143 @@
+{% extends 'users/layout/base.html' %}
+{% load static %}
+{% block title %} {{ user.username }} Dashboard | adtaskmedia {% endblock title %}
+{% block content  %}
+
+<style>
+  .hide {
+    display: none;
+  }
+</style>
+
+<section class="hero-section welcome-secton set-bg"  data-setbg="{% static '/img/main.png' %}">
+    <div class="container">
+    <div class="col-lg-12">
+         <h4><span>Home / </span><span>Dashboard</span></h4>
+         <div class="d-flex justify-content-center">
+          {% for message in messages %}
+            <h5 class="alert alert-{{ message.tags }} text-center">{{  message }}</h5>
+          {% endfor %}
+          <h5 id="info" class="alert  alert-info text-center">
+            You can Earn more by Subscribing our packages
+          </h5>
+        </div>
+    </div>
+        
+    </div>
+    
+</section>
+<br><br>
+
+<section class="ads-section1">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-xl-4 col-sm-6 mb-30 py-2">
+                        <div class="d-widget d-flex flex-wrap">
+                          <div class="col-8">
+                            <span class="caption">Total Earnings</span>
+                            <h6 class="currency-amount">&#8358;{{ user.balance }}</h6>
+                          </div>
+                          <div class="col-4">
+                            <div class="icon ml-auto">
+                              <i class="fas fa-paperclip"></i>
+                            </div>
+                          </div>
+                        </div><!-- d-widget-two end -->
+                      </div>
+
+                      <div class="col-xl-4 col-sm-6 mb-30 py-2">
+                        <div class="d-widget d-flex flex-wrap">
+                          <div class="col-8">
+                            <span class="caption">Total Clicks</span>
+                            <h6 class="currency-amount">&#8358;{{ user.clicks }}</h6>
+                          </div>
+                          <div class="col-4">
+                            <div class="icon ml-auto">
+                              <i class="fas fa-paperclip"></i>
+                            </div>
+                          </div>
+                        </div><!-- d-widget-two end -->
+                      </div>
+                      
+                    
+                      <div class="col-xl-4 col-sm-6 mb-30 py-2">
+                        <div class="d-widget d-flex flex-wrap">
+                          <div class="col-8">
+                            <span class="caption">Package</span>
+                            <h6 class="currency-amount">&#8358;{{ user.package }}</h6>
+                          </div>
+                          <div class="col-4">
+                            <div class="icon ml-auto">
+                              <i class="fas fa-paperclip"></i>
+                            </div>
+                          </div>
+                        </div><!-- d-widget-two end -->
+                      </div>
+
+                     
+
+
+                </div>
+               
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="history-section mt-5 mb-5">
+  <div class="container">
+      <div class="col-lg-12">
+        <div class="container">
+          <div class="add_card">
+            
+             <a style="color: #fff;" href="/ads/" class="add__item">
+              <div class="rounded-circle mb-2 bg-white-light fa_card_add">
+                <i  class="fas fa-plus fa-2x fa__item_add"></i>
+              </div>
+              Share ads
+            </a>
+            <a style="color: #fff;" href="{% url 'pub-withdraw' %}" class="add__item">
+              <div class="rounded-circle mb-2 bg-white-light fa_card_add">
+                <i  class="fas fa-download fa-2x fa__item_add"></i>
+              </div>
+               Withdraw 
+            </a>
+           
+            <a style="color: #fff;" href="{% url 'pub-subcribe' %}" class="add__item">
+              <div class="rounded-circle mb-2 bg-white-light fa_card_add">
+                <i  class="fas fa-check fa-2x fa__item_add"></i>
+              </div>
+              Subscribe
+            </a>
+  
+
+          </div>
+     
+     
+  </div>
+</section>
+
+
+<div class="container">
+  <div class="col-lg-12">
+    {% if user.package == 1000 %}
+      <h5 class="alert alert-info text-center">
+        You're currently running on a free package subscribe
+      </h5>
+    {% endif %}
+  </div>
+</div>
+<script>
+  
+  setTimeout(function(){
+    var info = document.getElementById('info')
+      info.classList.add('hide')
+     },2100);
+</script>
+<br><br>
+{% include "users/include/footer.html" %}
+
+{% endblock content  %}

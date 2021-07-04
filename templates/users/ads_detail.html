@@ -1,0 +1,164 @@
+{% extends 'users/layout/base.html' %}
+{% load static %}
+{% block title %} {{ obj.title }} | adtaskmedia{% endblock title %}
+{% block content  %}
+
+
+<section class="hero-section welcome-secton set-bg"  data-setbg="{% static '/img/main.png' %}">
+<div class="container">
+    <div class="col-lg-12">
+        <h3 class="">Ads >>{{ obj.brand_name }}</h3>
+    </div>
+</div>
+</section>
+<section class="section-container section-container-gray-bg">
+    <div class="container">
+        <div class="section slider">
+                <div class="row">
+                
+                    <div class="col-lg-7">
+                        <div id="product-carousel" class="carousel slide" data-bs-ride="carousel">
+                        
+                            <!--ol class="carousel-indicators">
+                                <li data-target="#product-carousel" data-slide-to="0" class="">
+                                        <img src="{% static 'img/cheerful-co-workers-office-during-company-meeting.jpg' %}" alt="Carousel Thumb" class="img-fluid">
+                                </li>
+                                <li data-target="#product-carousel" data-slide-to="1" class="active">
+                                    <img src="{% static 'img/cheerful-co-workers-office-during-company-meeting.jpg' %}" alt="Carousel Thumb" class="img-fluid">
+                                </li>
+                                <li data-target="#product-carousel" data-slide-to="2" class="">
+                                    <img src="{% static 'img/cheerful-co-workers-office-during-company-meeting.jpg' %}" alt="Carousel Thumb" class="img-fluid">
+                                </li>
+                                <li data-target="#product-carousel" data-slide-to="3" class="">
+                                    <img src="{% static 'img/cheerful-co-workers-office-during-company-meeting.jpg' %}" alt="Carousel Thumb" class="img-fluid">
+                                </li>
+                                <li data-target="#product-carousel" data-slide-to="4" class="">
+                                    <img src="{% static 'img/cheerful-co-workers-office-during-company-meeting.jpg' %}" alt="Carousel Thumb" class="img-fluid">
+                                </li>
+                            </ol-->
+                            
+                            <div class="carousel-inner" role="listbox">
+                            
+                            <div class="item carousel-item">
+                            <div class="carousel-image">
+                            
+                                <img src="{{ obj.cover_photos.url }}" alt="Featured Image" class="img-fluid">
+                            </div>
+                            </div>
+                            
+                            <div class="item carousel-item active">
+                            <div class="carousel-image">
+                            
+                                <img src="{{ obj.cover_photos_2.url }}" alt="Featured Image" class="img-fluid">
+                            </div>
+                            </div>
+                            
+                           
+                            
+                            
+                            
+                            </div>
+                        
+                            <a class="left carousel-control" href="#product-carousel" role="button" data-slide="prev">
+                               <i class="fas fa-chevron-left"></i>
+                            </a>
+                            <a class="right carousel-control" href="#product-carousel" role="button" data-slide="next">
+                               <i class="fas fa-chevron-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                
+                    <div class="col-lg-5">
+                        <div class="slider-text">
+                          <h2>&#8358;{{ obj.price }}</h2>
+                            <h3 class="ads-title">{{ obj.title }}</h3>
+                            <p><span>Offered by: <a href="#">{{ obj.author.username }}</a></span>
+                            <span> Ad ID:<a href="#" class="time"> {{ obj.pk }}</a></span></p>
+                            <span class="icon"><i class="fas fa-clock-o"></i><a href="#" id="ad-detail-date" data-id="{{ obj.pk }}" data-d="{{ obj.delete_date|date:'M d, Y H:m:s' }}">{{ obj.date }}</a></span>
+                            <span class="icon"><i class="fas fa-map-marker"></i><a href="#">Los Angeles, USA</a></span>
+                            <span class="icon"><i class="fas fa-suitcase online"></i><a href="#">Dealer <strong>(online)</strong></a></span>
+                            
+                            <div class="short-info">
+                                <h4>Short Info</h4>
+                                <p><strong>Condition: </strong><a href="#">{{ obj.condition }}</a> </p>
+                                <p><strong>Brand: </strong><a href="#">{{ obj.brand_name }}</a> </p>
+                                <!--p><strong>Features: </strong><a href="#">Camera,</a> <a href="#">Dual SIM,</a> <a href="#">GSM,</a> <a href="#">Touch screen</a> </p>
+                                <p><strong>Model: </strong><a href="#">iPhone 6</a></p-->
+                            </div>
+                        
+                        <div class="contact-with">
+                            <h4>Contact with </h4>
+                            <span class="btn btn-red show-number">
+                            <i class="fas fa-phone-square"></i>
+                            <span class="hide-text">phone number </span>
+                            <span class="hide-number">{{ obj.phone }}</span>
+                            </span>
+                            <a href="mail-to:{{ obj.email }}" class="btn"><i class="fas fa-envelope-square"></i>Reply by email</a>
+                        </div>
+                        
+                        <div class="social-links">
+                            <h4>Share this ad</h4>
+                            <ul class="list-inline">
+                                <li class="list-inline-item"><a href="#"><i class="fa fa-facebook-square fa-2x"></i></a></li>
+                                
+                                <li class="list-inline-item">
+                                    <a href="whatsapp://send?{{ obj.title }} : http://localhost:8000/ads/{{ obj.id }}?user={{ user.ref_code }}&&id={{ user.id }} " data-action="share/whatsapp/share"><i class="fa fa-whatsapp fa-2x"></i></a></li>
+                             </ul>
+                        </div>
+                        </div>
+                    </div>
+                </div> 
+        </div>
+    </div>
+</section>
+
+
+
+<section class="section-container section-container-gray-bg">
+    <div class="container">
+        <div class="description-info">
+            <div class="row">
+            
+            <div class="col-md-10">
+            <div class="description">
+            <h4>Description</h4>
+            <p>{{ obj.description }}</p>
+            </div>
+            </div>
+            
+            <!--div class="col-md-4">
+            <div class="short-info">
+            <h4>Short Info</h4>
+            
+            <ul class="list-unstyled">
+            <li><i class="fas fa-shopping-cart"></i><a href="#">Delivery: Meet in person</a></li>
+            <li><i class="fas fa-user-plus"></i><a href="#">More ads by <span>Yury Corporation</span></a></li>
+            <li><i class="fas fa-print"></i><a href="#">Print this ad</a></li>
+            <li><i class="fas fa-reply"></i><a href="#">Send to a friend</a></li>
+            <li><i class="fas fa-heart-o"></i><a href="#">Save ad as Favorite</a></li>
+            <li><i class="fas fa-exclamation-triangle"></i><a href="#">Report this ad</a></li>
+            </ul>
+            </div>
+            </div>
+            </div>
+            </div-->
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+<br><br>
+
+
+
+{% include "users/include/footer.html" %}
+
+
+ 
+{% endblock content  %}

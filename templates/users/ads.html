@@ -1,0 +1,96 @@
+{% extends 'users/layout/base.html' %}
+{% load static %}
+{% block title %} Ads | adtaskmedia {% endblock title %}
+{% block content  %}
+
+
+
+
+<section class="hero-section welcome-secton set-bg"  data-setbg="{% static '/img/main.png' %}">
+    
+     <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-lg-7">
+                        <div class="section recommended-ads">
+                        
+                        <div class="featured-top">
+                            <h4>Recommended Ads for You</h4>
+                        </div>
+                        {% for obj in obj_list %}
+                        <div class="ad-item row">
+                        
+                            <div class="item-image-box col-lg-4">
+                                <div class="item-image">
+                                     <a href="/ads/{{ obj.pk }}/"><img src="{{ obj.cover_photos.url }}" alt="Image" class="img-fluid"></a>
+                                </div>
+                            </div>
+                            
+                            <div class="item-info col-lg-8">
+                            
+                                <div class="ad-info text-black">
+                                    <h3 class="item-price">&#8358;{{ obj.price }}</h3>
+                                    <h4 class="item-title"><a href="/ads/{{ obj.pk }}/">{{ obj.title }}</a></h4>
+                                <div class="item-cat text-black">
+                                    <span><a href="/ads/{{ obj.pk }}/">{{ obj.brand_name }}</a></span> 
+                                </div>
+                                </div>
+                                
+                                <div class="ad-meta">
+                                    <div class="meta-content text-black">
+                                        <span class="dated"><a href="#">{{ obj.date }} </a></span>
+                                        <a href="#" class="tag"><i class="fa fa-tags"></i> {{ obj.condition }}</a>
+                                    </div>
+                                
+                                    <div class="user-option pull-right">
+                                        <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Los Angeles, USA"><i class="fas fa-map-marker"></i> </a>
+                                        <a class="online" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Individual"><i class="fas fa-user"></i> </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                       {% endfor %}
+                       
+  
+                      <div class="mt-5">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-center">
+                                {% if obj_list.has_previous %}
+                                    <li class="page-item ">
+                                        <a class="page-link" style="color: #fff; background-color: #48b1bf;" href="?page={{ obj_list.previous_page_number }}" tabindex="-1"><span aria-hidden="true">&laquo;</span></a>
+                                       
+                                    </li>
+                                {% else %}
+                                    <li class="page-item disabled">
+                                        <a class="page-link" style="color: #fff; background-color: #48b1bf; box-shadow: none; cursor: not-allowed;  opacity: 0.5;  pointer-events: none;" href="#" tabindex="-1"><span aria-hidden="true">&laquo;</span></a>
+                                    </li>
+                                {% endif %}
+                                <li class="page-item"><a class="page-link" style="color: #fff; background-color: #48b1bf;" href="#">{{ obj_list.number }}</a></li>
+                                
+                                {% if obj_list.has_next %}
+                                    <li class="page-item">
+                                        <a class="page-link" style="color: #fff; background-color: #48b1bf;" href="?page={{ obj_list.next_page_number }}"><span aria-hidden="true">&raquo;</span></a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item disabled">
+                                        <a class="page-link"  style="color: #fff; background-color: #48b1bf; box-shadow: none; cursor: not-allowed;  opacity: 0.5;  pointer-events: none;"  href="#"><span aria-hidden="true">&raquo;</span></a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                          </nav>
+                      </div>   
+                      
+
+                        </div>
+                        </div>
+                </div>
+        </div>
+
+    
+</section>
+
+
+
+<br><br>
+
+
+{% endblock content  %}

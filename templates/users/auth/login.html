@@ -1,0 +1,54 @@
+{% extends 'users/auth/main.html' %}
+{% load static %}
+{% block title %} Login into your account | adtaskmedia {% endblock title %}
+{% block content  %}
+
+
+<style>
+    button.disabled,
+    button[disabled] {
+        box-shadow: none;
+        cursor: not-allowed;
+        opacity: 0.5;
+        pointer-events: none;
+    }
+</style>
+
+<div class="container-login100" style="background-image: url('/static/auth/images/bg-01.jpg');">
+    <div class="wrap-login100 p-t-30 p-b-50">
+        <span id="response-msg" class="login100-form-title p-b-41">
+            Account Login
+        </span>
+        <form class="login100-form loginform validate-form p-b-33 p-t-5" method="POST">
+            {% csrf_token %}
+            <div class="">
+                {% for message in messages %}
+                  <h5 class="alert alert-{{ message.tags }} text-center">{{  message }}</h5>
+                {% endfor %}
+              </div>
+
+            <div class="wrap-input100 validate-input" data-validate = "Enter username">
+                <input class="input100" id="username" type="text" name="username" placeholder="User name" required>
+                <span class="focus-input100" data-placeholder="&#xe82a;"></span>
+            </div>
+
+            <div class="wrap-input100 validate-input" data-validate="Enter password">
+                <input class="input100" id="password" type="password" name="pass" placeholder="Password" required>
+                <span class="focus-input100" data-placeholder="&#xe80f;"></span>
+            </div>
+            <div class="d-flex justify-content-center text-center mt-1">
+                <p>Don't Have an Accout? <a href="/register">Sign Up</a></p>
+             </div>
+
+            <div class="container-login100-form-btn m-t-32">
+                <button class="login100-form-btn " id="log-b">
+                    Login
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+{% endblock content  %}

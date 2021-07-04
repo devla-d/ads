@@ -1,0 +1,88 @@
+{% extends 'users/layout/base.html' %}
+{% load static %}
+{% block title %} Checkout | adtaskmedia {% endblock title %}
+{% block content  %}
+
+<!-- Hero Slider Begin -->
+<div class="hero-slider">
+    <div class="slider-item">
+        <div class="single-slider-item set-bg" data-setbg="{% static '/img/main.png' %}">
+            <div class="container">
+                <div class="row text-center">
+                    <div class="col-md-6 offset-md-3">
+                        <div class="ads-checkout">
+                            <div class="con mt-5">
+                              <form>
+                                <i class="fas fa-shopping-cart fa-2x"></i>
+                                <h3>Checkout!</h3>
+                                <h4 id="am-id" data-id="{{ obj.id }}" data-amout="{{ obj.amount_paid }}">Total : &#8358;{{ obj.amount_paid }}</h4>
+                                
+                                    <script src="https://checkout.flutterwave.com/v3.js"></script>
+                                    <button type="button" style="cursor:pointer;" class="btn btn-success mt-4" value="Pay Now" id="checkbtn">Pay Now</button>
+                                </form>
+                                  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Hero Slider End -->
+
+<br><br>
+{% block scripts %}
+<script src="{% static '/js/jquery-3.3.1.min.js' %}" ></script>
+
+<script>
+  var am = document.getElementById('am-id').getAttribute('data-amout')
+  var id = document.getElementById('am-id').getAttribute('data-id')
+  var btn = document.getElementById('checkbtn')
+  btn.addEventListener('click',function (e) {
+     e.preventDefault()
+     makePayment()
+  })
+  function makePayment() {
+    FlutterwaveCheckout({
+      public_key: "FLWPUBK_TEST-SANDBOXDEMOKEY-X",
+      tx_ref: "RX1",
+      amount: am,
+      currency: "NGN",
+      country: "NG",
+      payment_options: " ",
+      redirect_url: // specified redirect URL
+        `http://localhost:8000/advertiser/create_ad/complete/${id}`,
+      meta: {
+        consumer_id: 23,
+        consumer_mac: "92a3-912ba-1192a",
+      },
+      customer: {
+        email: "cornelius@gmail.com",
+        phone_number: "08102909304",
+        name: "Flutterwave Developers",
+      },
+      callback: function (data) {
+        console.log(data);
+      },
+      onclose: function() {
+        // close modal
+         //activate_post()
+      },
+      customizations: {
+        title: "My Ads",
+        description: "Payment for items in cart",
+        logo: "https://assets.piedpiper.com/logo.png",
+      },
+    });
+  }
+
+
+
+  
+
+</script>
+{% endblock scripts %}
+{% include "users/include/footer.html" %}
+
+{% endblock content  %}

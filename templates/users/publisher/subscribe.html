@@ -1,0 +1,184 @@
+{% extends 'users/layout/base.html' %}
+{% load static %}
+{% block title %} Subscribe |  adtaskmedia {% endblock title %}
+{% block content  %}
+
+
+
+<section class="hero-section welcome-secton set-bg"  data-setbg="{% static '/img/main.png' %}">
+    <div class="container">
+    <div class="col-lg-12">
+         <h4><span>Home / </span><span>Subscribe</span></h4>
+         <div class="d-flex justify-content-center">
+          {% for message in messages %}
+            <h5 class="alert alert-{{ message.tags }} text-center">{{  message }}</h5>
+          {% endfor %}
+        </div>
+    </div>
+        
+    </div>
+    
+</section>
+ 
+
+
+<section class="fund-section section-container-gray-bg mt-5 ">
+    <div class="container">
+        <div class="col-log-12">
+            <div class="d-flex justify-content-center">
+            <div class="fund-card">
+                <div style="padding: 10px; color:#48b1bf ;" class="form-title text-center" id="response-msg-with">
+                     Subscribe
+                </div>
+               
+                <div class="">
+                    {% for message in messages %}
+                      <h5 class="alert alert-{{ message.tags }} text-center">{{  message }}</h5>
+                    {% endfor %}
+                  </div>
+                <form class="sub_form"  method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <h4 class="text-center text-white">Packages</h4>
+                        <select name="plans" class="form-control" id="plans" required>
+                          <option value="0">Choose plan</option>
+                             <option>2000</option>
+                             <option>5000</option>
+                             <option>10000</option>
+                          
+                        </select>
+                      </div>
+                      <div class="msg-box text-center" >
+
+                         
+                        <div class="form-group mt-2">
+                          <h3 class="text-white">Earning per Click</h3>
+                          <h4  class="text-white" >&#8358;<span id="rio"></span></h4>
+                        </div>
+                        
+                         
+                      </div>
+                    
+                    
+                    <div class="d-flex justify-content-center mt-3 mb-2">
+                        
+                        <script src="https://checkout.flutterwave.com/v3.js"></script>
+                        <button type="button" style="cursor:pointer;" class="btn btn-success " value="Pay Now" id="sub-btn">Pay Now</button>
+
+                    </div>
+                </form>
+            </div>
+            </div>
+        </div>
+    </div>
+</section>
+ 
+
+{% block scripts %}
+ <script src="{% static '/js/jquery-3.3.1.min.js' %}" ></script>
+
+<script>
+   /* csrf token */
+   function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    const csrftoken = getCookie('csrftoken');
+
+    $('#plans').change(function () {
+    console.log($(this).val())
+   
+     
+    if ($(this).val() == 2000)
+    {
+        document.getElementById('rio').innerText=  + 100
+        var a = 2
+       
+    }else if ($(this).val() == 5000) {
+       document.getElementById('rio').innerText= 250
+       var a = 5
+    }
+    else if ($(this).val() == 10000) {
+       document.getElementById('rio').innerText= 500
+       var a = 10
+    }
+
+    
+
+  })
+   document.getElementById('sub-btn').addEventListener('click',function (e) {
+     e.preventDefault()
+      makePayment()
+      
+    
+      
+  
+
+   })
+  function makePayment() {
+    if ($('#plans').val() == 2000)
+    {
+        //document.getElementById('rio').innerText=  + 100
+        var a = 2
+       
+    }else if ($('#plans').val() == 5000) {
+       //document.getElementById('rio').innerText= 250
+       var a = 5
+    }
+    else if ($('#plans').val() == 10000) {
+       //document.getElementById('rio').innerText= 500
+       var a = 10
+    }
+    FlutterwaveCheckout({
+      public_key: "FLWPUBK-7a982e188ba39fc5d19d530e703f4207-X",
+      tx_ref: "RX1",
+      amount: $('#plans').val(),
+      currency: "NGN",
+      country: "NG",
+      payment_options: " ",
+      redirect_url: // specified redirect URL
+        `http://localhost:8000/taskers/dashboard/?a=${a}`,
+      meta: {
+        consumer_id: 23,
+        consumer_mac: "92a3-912ba-1192a",
+      },
+      customer: {
+        email: "cornelius@gmail.com",
+        phone_number: "08102909304",
+        name: "Flutterwave Developers",
+      },
+      callback: function (data) {
+        console.log(data);
+      },
+      onclose: function() {
+        // close modal
+         //activate_post()
+      },
+      customizations: {
+        title: "My Ads",
+        description: "Payment for items in cart",
+        logo: "http://localhost:8000/static/img/Adtaskmedia-Logo-Main.png",
+      },
+    });
+  }
+
+
+
+  
+</script>
+{% endblock scripts %}
+<br><br>
+{% include "users/include/footer.html" %}
+
+{% endblock content  %}

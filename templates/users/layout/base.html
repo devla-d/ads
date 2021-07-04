@@ -1,0 +1,20 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    {% include "users/include/header.html" %}
+    <title>{% block title %} {% endblock title %}</title>
+  </head>
+  <body>
+
+    <div class="content">
+      <div class="header">
+        {% include "users/include/navbar.html" %}
+      </div>
+        {% block content  %} {% endblock content %}
+    </div>
+
+
+    {% include "users/include/scripts.html" %}
+  </body>
+</html>

@@ -1,0 +1,48 @@
+{% extends 'users/layout/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %} Create Ad | adtaskmedia {% endblock title %}
+{% block content  %}
+
+
+<!-- Hero Slider Begin -->
+<section>
+<div class="hero-slider">
+    <div class="slider-item">
+        <div class="single-slider-item set-bg" data-setbg="{% static '/img/main.png' %}">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8">
+                       
+                        <div class="">
+                            {% for message in messages %}
+                              <h5 class="alert alert-{{ message.tags }} text-center">{{  message }}</h5>
+                            {% endfor %}
+                          </div>
+                        <div class="create-ads-form">
+                            <h4>Sell an item or service </h4>
+                            <fieldset></fieldset>
+                            <form action="" method="post" class="mt-2 ads-form" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {{ form| crispy }}
+                                
+
+                              <div class="form-group">
+                                  <input type="submit" class="btn btn-success" value="submit">
+                              </div>
+                            
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                 
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+<!-- Hero Slider End -->
+
+ 
+{% endblock content  %}
